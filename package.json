@@ -1,5 +1,5 @@
 {
-  "name": "eslint-plugin-react-native",
+  "name": "@wanderlogapp/eslint-plugin-react-native",
   "version": "4.0.0-wanderlog.2",
   "author": "Tom Hastjarjanto <tom@intellicode.nl>",
   "description": "React Native specific linting rules for ESLint",
