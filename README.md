@@ -1,3 +1,43 @@
+# Wanderlog fork
+
+This is Wanderlog's fork of eslint-plugin-react-native. We publish it to npm as
+[`@wanderlogapp/eslint-plugin-react-native`](https://www.npmjs.com/package/@wanderlogapp/eslint-plugin-react-native).
+The itineraries repo installs it with
+`"eslint-plugin-react-native": "npm:@wanderlogapp/eslint-plugin-react-native@…"`.
+
+## Releasing a new version
+
+First, commit and push your change to the `wanderlog` branch. Check
+https://github.com/wanderlog/eslint-plugin-react-native/tags for the latest version, and add 1 to
+the last number. Make sure `npm whoami` prints `wanderlogapp` (if not, run
+`npm login`). Then run:
+
+```shell
+VERSION='<substitute version here>' # e.g., VERSION='v4.0.0-wanderlog.3'
+
+# Start wanderlog-built from the latest commit on the wanderlog branch
+git fetch
+git checkout wanderlog-built
+git reset --hard origin/wanderlog
+
+# Rename the package for npm, and set its version (without the leading v)
+npm pkg set name='@wanderlogapp/eslint-plugin-react-native' version="${VERSION#v}"
+
+# Commit, tag, and push the release
+git commit -am "[$VERSION] Release built version"
+git tag "$VERSION"
+git push -f origin wanderlog-built "$VERSION"
+
+# Publish to npm. --ignore-scripts skips the package's build and install
+# scripts, since the built files are already committed
+npm publish --access public --ignore-scripts
+```
+
+Then, in itineraries, bump the version in the `npm:@wanderlogapp/eslint-plugin-react-native@…`
+alias and run `yarn install`. New `@wanderlogapp/*` versions skip the
+one-week age gate because of `npmPreapprovedPackages` in `.yarnrc.yml`.
+
+--------------------------------------------------------------------------------
 
 ESLint plugin for React Native
 ==============================
